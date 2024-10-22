@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/22 16:12:15 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:31:16 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ char	*get_next_line(int fd)
 				return (ft_strcpy(buf));
 			i++;
 		}
+		i = 0;
+		strjoin(static, buf);
 	}
-	if (count == BUFFER_SIZE)
 	free(buf);
 	return (next_line);
 }
