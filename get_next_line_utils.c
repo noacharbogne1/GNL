@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/23 11:07:45 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:10:35 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,19 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_copy(char *s)
+char	*ft_copy(char *s, int start)
 {
 	char	*dest;
-	int		i;
 
-	i = 0;
 	if (!s)
 		return ;
-	while (s[i])
+	while (s[start])
 	{
-		s[i] = dest[i];
-		i++;
+		s[start] = dest[start];
+		start--;
 	}
-	return (dest)
+	dest[start] = '\0';
+	return (dest);
 }
 
 int	ft_check_n(char *s)
@@ -46,7 +45,7 @@ int	ft_check_n(char *s)
 	while (s[i])
 	{
 		if (s[i] == '\n')
-			return (1);
+			return (i);
 		i++;
 	}
 	return (0);
