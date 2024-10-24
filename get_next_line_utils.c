@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/24 09:49:33 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:06:49 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_check_n(char *s)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
-	int		len;
+	int		start;
 
 	i = 0;
 	if (!s2)
@@ -51,5 +51,5 @@ char	*ft_strjoin(char *s1, char *s2)
 		start++;
 		i++;
 	}
-	return (stock);
+	return (s1);
 }

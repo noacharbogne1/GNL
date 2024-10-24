@@ -6,16 +6,23 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 10:24:01 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/24 10:25:57 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:13:20 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 int	main()
 {
-	int fd;
+	int 	fd;
+	char	*a;
 
 	fd = open("test", O_RDONLY);
-	printf("%s", get_next_line(fd));
+	a = get_next_line(fd);
+	printf("%s", a);
+	free(a);
 }
