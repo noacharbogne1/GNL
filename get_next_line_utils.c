@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/23 16:10:35 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/24 09:49:33 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,6 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_copy(char *s, int start)
-{
-	char	*dest;
-
-	if (!s)
-		return ;
-	while (s[start])
-	{
-		s[start] = dest[start];
-		start--;
-	}
-	dest[start] = '\0';
-	return (dest);
-}
-
 int	ft_check_n(char *s)
 {
 	int	i;
@@ -48,22 +33,22 @@ int	ft_check_n(char *s)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
-char	*ft_strjoin(char const *buf, static char *stock)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		len;
 
 	i = 0;
-	if (!buf)
+	if (!s2)
 		return (0);
-	len = ft_strlen(stock);
-	while (buf[i])
+	start = ft_strlen(s1);
+	while (s1[i])
 	{
-		stock[len] = buf[i];
-		len++;
+		s1[start] = s2[i];
+		start++;
 		i++;
 	}
 	return (stock);

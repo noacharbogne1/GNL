@@ -1,0 +1,18 @@
+1) recuperer le contenu du buffer utilise dans la fonction read
+- creation d'un buffer avec malloc (taille BUFFER_SIZE + 1)
+- son contenu est ecrase a chaque appel de read
+2) copier le contenu de ce buffer dans une static
+	-> si oui (check >= 0) : on copie dans un char * classique le contenu jusqu'a
+	l'index indique par check. On lance ensuite une deuxieme fonction, qui va
+	s'occuper de malloc un deuxieme char *, mais static, avec le reste, apres le \n,
+	qui ne sera pas free.
+	-> si non (check == -1) : on copie dans une char * static le contenu entier du
+	buffer. On refait appel a read et on cree une nouvelle static avec malloc avec
+	le contenu deja present + le contenu du nouveau buffer
+	(malloc(ft_strlen(stock) + count + 1)). On y copie a l'index (ft_strlen(stock))
+	le contenu du nouveau buffer. Et ainsi de suite jusqu'a remplir une autre
+	condition : soit on arrive a la fin du fichier et on retourne toute la static
+	remplie par le buffer / soit on trouve un \n avant la fin et dans ce cas on
+	rentre dans la conditon (check >= 0).
+	-> si on arrive a la fin du fichier (count == 0), on reproduit le premier cas,
+	mais sans de reste dans une static.
