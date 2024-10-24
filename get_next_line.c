@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/24 11:26:04 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:02:25 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,20 @@ char	*get_next_line(int fd)
 	unsigned int	count;
 	int				check;
 
-	check = 1;
-	count = 0;
-	stock = "";
+	check = 0;
+	count = 1;
+	tmp = "";
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (0);
-	while (check)
+	while (count != 0)
 	{
 		count = read(fd, buf, BUFFER_SIZE);
 		buf[BUFFER_SIZE + 1] = '\0';
 		check = ft_check_n(buf);
 		if (check >= 0)
 		{
-			stock = malloc((ft_strlen(stock) + check + 1) * sizeof(char));
+			stock = malloc((ft_strlen(tmp) + check + 1) * sizeof(char));
 			if (!stock)
 				return (0);
 			stock = ft_trim_line(buf, stock);
@@ -85,16 +85,16 @@ char	*get_next_line(int fd)
 		}
 		if (check == -1)
 		{
-			tmp = stock;
-			stock = malloc((ft_strlen(stock) + count + 1) * sizeof(char));
+			stock = malloc((ft_strlen(tmp) + count + 1) * sizeof(char));
 			if (!stock)
 				return (0);
 			stock = ft_strjoin(tmp, buf);
-			free(tmp);
-			tmp = NULL;
+			tmp = stock;
+			free(stock);
 		}
-		break;
+		if (check = '\n')
+			break;
 	}
 	free(buf);
-	return (stock);
+	return (tmp);
 }
