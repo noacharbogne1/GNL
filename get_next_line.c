@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/25 17:32:35 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:35:18 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ char	*ft_trim_line(char *buf)
 	next_line = malloc(((buf[len] == '\n') + len + 1) * sizeof(char));
 	if (!next_line)
 		return (0);
-	i = 0;
-	while (i < len)
-	{
+	i = -1;
+	while (i++ < len)
 		next_line[i] = buf[i];
-		i++;
-	}
 	if (buf[len] && buf[len] == '\n')
 	{
 		next_line[i] = '\n';
