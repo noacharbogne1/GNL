@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/25 08:55:58 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:59:04 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	ft_check_n(char *s)
 	while (s[i])
 	{
 		if (s[i] == '\n')
-			return (i);
+			return (1);
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

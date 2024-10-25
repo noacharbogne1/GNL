@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 10:24:01 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/24 14:30:11 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:28:59 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int	main()
 	a = get_next_line(fd);
 	printf("%s", a);
 	free(a);
+	close (fd);
 }
