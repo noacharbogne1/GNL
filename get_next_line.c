@@ -6,68 +6,70 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/25 11:34:47 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:32:35 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_trim_line(char *line)
+char	*ft_trim_line(char *buf)
 {
 	int		len;
 	int		i;
 	char	*next_line;
 
-	i = 0;
-	while (line[i] != '\n' && line[i])
-		i++;
-	len = i + 1;
-	if (len == 0 || len > ft_strlen(line))
+	len = 0;
+	while (buf[len] && buf[len] != '\n')
+		len++;
+	if (len == 0 || len > ft_strlen(buf))
 		return (0);
-	next_line = malloc((len + 1) * sizeof(char));
+	next_line = malloc(((buf[len] == '\n') + len + 1) * sizeof(char));
 	if (!next_line)
 		return (0);
 	i = 0;
 	while (i < len)
 	{
-		next_line[i] = line[i];
+		next_line[i] = buf[i];
 		i++;
 	}
-	next_line[i] = '\0';
+	if (buf[len] && buf[len] == '\n')
+	{
+		next_line[i] = '\n';
+		next_line[i + 1] = '\0';
+	}
+	else
+		next_line[i] = '\0';
 	return (next_line);
 }
 
-char	*ft_rest_end(char *line)
+char	*ft_rest_end(char *buf)
 {
-	static char			*rest;
-	unsigned int		i;
-	unsigned int		start;
-	unsigned int		end;
+	char			*rest;
+	unsigned int	i;
+	unsigned int	start;
 
 	i = 0;
-	if (!line)
+	if (!buf)
 		return (0);
-	while (line[i] && line[i] != '\n')
+	while (buf[i] && buf[i] != '\n')
 		i++;
-	if (line[i] != '\n')
+	if (buf[i] != '\n')
 	{
-		free(line);
+		free(buf);
 		return (0);
 	}
 	start = i + 1;
-	end = ft_strlen(line) - 1;
 	i = 0;
-	rest = malloc((end - start + 1) * sizeof(char));
+	rest = malloc(((ft_strlen(buf) - 1) - start + 1) * sizeof(char));
 	if (!rest)
 		return (0);
-	while(line[start])
+	while(buf[start + i])
 	{
-		rest[i] = line[start];
+		rest[i] = buf[start + i];
 		i++;
-		start++;
 	}
 	rest[i] = '\0';
-	free(line);
+	free(buf);
 	return (rest);
 }
 
@@ -77,47 +79,37 @@ char	*ft_find_line(char *buf, int fd)
 	char			*tmp;
 	unsigned int	count;
 
-	count = 1;
-	stock = malloc(1);
-	if (!stock)
-		return (0);
-	stock[0] = '\0';
-	while (count != 0)
+	count = 0;
+	if (!buf)
 	{
-		count = read(fd, buf, BUFFER_SIZE);
-		buf[count] = '\0';
-		if (!ft_check_n(buf))
-		{
-			tmp = ft_strjoin(stock, buf);
-			free(stock);
-			stock = tmp;
-		}
-		else if (ft_check_n(buf))
-		{
-			tmp = ft_strjoin(stock, buf);
-			free(stock);
-			stock = tmp;
-			break ;
-		}
+		buf = malloc(1);
+		buf[0] = '\0';
 	}
-	return (stock);
+	tmp = calloc((BUFFER_SIZE + 1), 1);
+	if (!tmp)
+		return (0);
+	while (1)
+	{
+		count = read(fd, tmp, BUFFER_SIZE);
+		tmp[count] = '\0';
+		stock = ft_strjoin(buf, tmp);
+		free(buf);
+		buf = stock;
+		if (ft_check_n(buf) || count == 0)
+			break ;
+	}
+	return (buf);
 }
 
 char	*get_next_line(int fd)
 {
-	char			*buf;
-	char			*line;
+	static char		*buf;
 	char			*next_line;
 
 	if (fd > 1024 || fd < 0)
 		return (0);
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buf)
-		return (0);
-	memset(buf, 0, (BUFFER_SIZE + 1));
-	line = ft_find_line(buf, fd);
-	free(buf);
-	next_line = ft_trim_line(line);
-	ft_rest_end(line);
+	buf = ft_find_line(buf, fd);
+	next_line = ft_trim_line(buf);
+	buf = ft_rest_end(buf);
 	return (next_line);
 }
