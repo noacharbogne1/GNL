@@ -16,3 +16,7 @@
 	rentre dans la conditon (check >= 0).
 	-> si on arrive a la fin du fichier (count == 0), on reproduit le premier cas,
 	mais sans de reste dans une static.
+
+	malloc dans le strjoin : vrai strjoin, on copie le stock et on y met juste apres
+	le buffer, on free le stock
+	diviser en trois : trouver la ligne, trim, reste
