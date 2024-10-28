@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/28 17:15:48 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:01:52 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_rest_end(char *buf)
 	}
 	start = i + 1;
 	i = 0;
-	rest = malloc(((ft_strlen(buf) - 1) - start + 2) * sizeof(char));
+	rest = malloc((ft_strlen(buf) - start + 1) * sizeof(char));
 	if (!rest)
 		return (0);
 	while(buf[start + i])
@@ -108,28 +108,6 @@ char	*ft_find_line(char *buf, int fd)
 		free(tmp);
 	return (buf);
 }
-
-/*int		ft_free(char *s1, char *s2, char *s3)
-{
-	if (s1)
-	{
-		free(s1);
-		s1 = NULL;
-		return (0)
-	}
-	if (s2)
-	{
-		free(s2);
-		s2 = NULL;
-		return (0)
-	}
-	if (s2)
-	{
-		free(s3);
-		s3 = NULL;
-		return (0)
-	}
-}*/
 
 char	*get_next_line(int fd)
 {
