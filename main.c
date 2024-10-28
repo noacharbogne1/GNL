@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 10:24:01 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/25 17:33:48 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:10:07 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ int	main()
 	fd = open("test", O_RDONLY);
 	a = get_next_line(fd);
 	printf("%s", a);
-	free(a);
-	a = get_next_line(fd);
-	printf("%s", a);
-	free(a);
-	a = get_next_line(fd);
-	printf("%s\n", a);
-	free(a);
-	close (fd);
+	while (a != 0)
+	{
+		free(a);
+		a = get_next_line(fd);
+		if (a)
+			printf("%s", a);
+	}
+	if (fd != -1)
+		close (fd);
 }

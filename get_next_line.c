@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/25 18:35:18 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:13:57 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,14 @@ char	*ft_trim_line(char *buf)
 		len++;
 	if (len == 0 || len > ft_strlen(buf))
 		return (0);
-	next_line = malloc(((buf[len] == '\n') + len + 1) * sizeof(char));
+	next_line = malloc(((buf[len] == '\n') + len + 2) * sizeof(char));
 	if (!next_line)
 		return (0);
 	i = -1;
 	while (i++ < len)
 		next_line[i] = buf[i];
 	if (buf[len] && buf[len] == '\n')
-	{
-		next_line[i] = '\n';
-		next_line[i + 1] = '\0';
-	}
+		next_line[i] = '\0';
 	else
 		next_line[i] = '\0';
 	return (next_line);
@@ -57,7 +54,7 @@ char	*ft_rest_end(char *buf)
 	}
 	start = i + 1;
 	i = 0;
-	rest = malloc(((ft_strlen(buf) - 1) - start + 1) * sizeof(char));
+	rest = malloc(((ft_strlen(buf) - 1) - start + 2) * sizeof(char));
 	if (!rest)
 		return (0);
 	while(buf[start + i])
@@ -74,7 +71,7 @@ char	*ft_find_line(char *buf, int fd)
 {
 	char			*stock;
 	char			*tmp;
-	unsigned int	count;
+	int				count;
 
 	count = 0;
 	if (!buf)
@@ -82,19 +79,31 @@ char	*ft_find_line(char *buf, int fd)
 		buf = malloc(1);
 		buf[0] = '\0';
 	}
-	tmp = calloc((BUFFER_SIZE + 1), 1);
+	tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!tmp)
 		return (0);
 	while (1)
 	{
 		count = read(fd, tmp, BUFFER_SIZE);
+		if (count == -1 || (count == 0 && !tmp))
+		{
+			free(tmp);
+			return (0);
+		}
 		tmp[count] = '\0';
 		stock = ft_strjoin(buf, tmp);
+		if (!stock)
+		{
+			free(buf);
+			free(tmp);
+			return (0);
+		}
 		free(buf);
 		buf = stock;
 		if (ft_check_n(buf) || count == 0)
 			break ;
 	}
+	free(tmp);
 	return (buf);
 }
 
@@ -106,7 +115,17 @@ char	*get_next_line(int fd)
 	if (fd > 1024 || fd < 0)
 		return (0);
 	buf = ft_find_line(buf, fd);
+	if (!buf)
+	{
+		free (buf);
+		return (0);
+	}
 	next_line = ft_trim_line(buf);
+	if (!next_line)
+	{
+		free(next_line);
+		return (0);
+	}
 	buf = ft_rest_end(buf);
 	return (next_line);
 }

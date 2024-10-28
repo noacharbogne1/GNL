@@ -6,46 +6,35 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/25 17:16:27 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:10:38 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strdup(char *s)
 {
+	int		i;
+	int		len;
 	char	*dest;
-	size_t	n;
 
-	if (nmemb == 0 || size == 0)
-		return (malloc(0));
-	if (nmemb > (size_t) - 1 / size)
-		return (0);
-	n = nmemb * size;
-	dest = malloc(n * sizeof(char));
+	i = 0;
+	len = ft_strlen(s) + 1;
+	dest = malloc(len * sizeof(char));
 	if (dest == NULL)
 		return (0);
-	ft_memset(dest, 0, n);
-	return (dest);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	unsigned char	*adress;
-
-	adress = (unsigned char *)s;
-	while (n > 0)
+	while (s[i])
 	{
-		*adress = c;
-		adress++;
-		n--;
+		dest[i] = s[i];
+		i++;
 	}
-	return (s);
+	dest[i] = '\0';
+	return (dest);
 }
 
 int	ft_strlen(char *s)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -69,7 +58,7 @@ int	ft_check_n(char *s)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *buf, char *tmp)
 {
 	unsigned int		i;
 	unsigned int		j;
@@ -77,18 +66,18 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	dest = malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (dest == NULL)
+	dest = malloc((ft_strlen(buf) + ft_strlen(tmp) + 1) * sizeof(char));
+	if (!dest)
 		return (0);
-	while (*s1 && s1[i])
+	while (*buf && buf[i])
 	{
-		dest[i] = s1[i];
+		dest[i] = buf[i];
 		i++;
 	}
 	j = 0;
-	while (s2[j])
+	while (tmp[j])
 	{
-		dest[i] = s2[j];
+		dest[i] = tmp[j];
 		i++;
 		j++;
 	}

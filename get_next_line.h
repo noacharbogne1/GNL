@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:20 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/25 18:38:13 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:31:24 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # include <string.h>
 
 # ifndef BUFFER_SIZE
-# 	define BUFFER_SIZE 5
+# 	define BUFFER_SIZE 1
 # endif
 
 char	*get_next_line(int fd);
 char	*ft_rest_end(char *buf);
+char	*ft_strdup(char *s);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_trim_line(char *buf);
 void	*ft_memset(void *s, int c, size_t n);
