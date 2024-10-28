@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/28 13:13:57 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:15:48 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char	*ft_trim_line(char *buf)
 	len = 0;
 	while (buf[len] && buf[len] != '\n')
 		len++;
-	if (len == 0 || len > ft_strlen(buf))
+	if (len == 0 && buf[0] != '\n')
 		return (0);
-	next_line = malloc(((buf[len] == '\n') + len + 2) * sizeof(char));
+	next_line = malloc((len + 2) * sizeof(char));
 	if (!next_line)
 		return (0);
 	i = -1;
@@ -74,21 +74,22 @@ char	*ft_find_line(char *buf, int fd)
 	int				count;
 
 	count = 0;
-	if (!buf)
-	{
-		buf = malloc(1);
-		buf[0] = '\0';
-	}
 	tmp = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!tmp)
 		return (0);
 	while (1)
 	{
 		count = read(fd, tmp, BUFFER_SIZE);
-		if (count == -1 || (count == 0 && !tmp))
+		if (count == -1)
 		{
 			free(tmp);
 			return (0);
+		}
+		if (count == 0)
+		{
+			free(tmp);
+			tmp = NULL;
+			break ;
 		}
 		tmp[count] = '\0';
 		stock = ft_strjoin(buf, tmp);
@@ -100,16 +101,39 @@ char	*ft_find_line(char *buf, int fd)
 		}
 		free(buf);
 		buf = stock;
-		if (ft_check_n(buf) || count == 0)
+		if (ft_check_n(buf))
 			break ;
 	}
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	return (buf);
 }
 
+/*int		ft_free(char *s1, char *s2, char *s3)
+{
+	if (s1)
+	{
+		free(s1);
+		s1 = NULL;
+		return (0)
+	}
+	if (s2)
+	{
+		free(s2);
+		s2 = NULL;
+		return (0)
+	}
+	if (s2)
+	{
+		free(s3);
+		s3 = NULL;
+		return (0)
+	}
+}*/
+
 char	*get_next_line(int fd)
 {
-	static char		*buf;
+	static char		*buf = NULL;
 	char			*next_line;
 
 	if (fd > 1024 || fd < 0)
@@ -117,13 +141,13 @@ char	*get_next_line(int fd)
 	buf = ft_find_line(buf, fd);
 	if (!buf)
 	{
-		free (buf);
+		free(buf);
 		return (0);
 	}
 	next_line = ft_trim_line(buf);
 	if (!next_line)
 	{
-		free(next_line);
+		free(buf);
 		return (0);
 	}
 	buf = ft_rest_end(buf);

@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/28 13:10:38 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:48:29 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,18 @@ char	*ft_strjoin(char *buf, char *tmp)
 
 	i = 0;
 	j = 0;
+	if (!buf && !tmp)
+		return (0);
 	dest = malloc((ft_strlen(buf) + ft_strlen(tmp) + 1) * sizeof(char));
 	if (!dest)
 		return (0);
-	while (*buf && buf[i])
+	while (buf && buf[i])
 	{
 		dest[i] = buf[i];
 		i++;
 	}
 	j = 0;
-	while (tmp[j])
+	while (tmp && tmp[j])
 	{
 		dest[i] = tmp[j];
 		i++;
