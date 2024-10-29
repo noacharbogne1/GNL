@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/29 08:57:25 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:29:04 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_rest_end(char *buf)
 	rest = malloc((ft_strlen(buf) - start + 1) * sizeof(char));
 	if (!rest)
 		return (0);
-	while(buf[start + i])
+	while (buf[start + i])
 	{
 		rest[i] = buf[start + i];
 		i++;
@@ -72,7 +72,7 @@ void	*ft_join_buf(char *buf, char *tmp, int count)
 	tmp[count] = '\0';
 	stock = ft_strjoin(buf, tmp);
 	if (!stock)
-			return (ft_free(buf, tmp));
+		return (ft_free(buf, tmp));
 	free(buf);
 	buf = stock;
 	return ((char *)buf);
