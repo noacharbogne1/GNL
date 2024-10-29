@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:20 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/28 17:30:41 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:31:07 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_trim_line(char *buf);
 void	*ft_memset(void *s, int c, size_t n);
 int		ft_strlen(char *s);
 int		ft_check_n(char *s);
-void	ft_free(char *s1, char *s2, char *s3);
+void	*ft_free(char *s1, char *s2);
 char	*ft_strjoin(char *s1, char *s2);
 
 #endif

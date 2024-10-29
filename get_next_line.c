@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/28 18:01:52 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:47:14 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,23 @@ char	*ft_trim_line(char *buf)
 	return (next_line);
 }
 
+void	*ft_free(char *s1, char *s2)
+{
+	if (s1)
+	{
+		free(s1);
+		s1 = NULL;
+		return (NULL);
+	}
+	if (s2)
+	{
+		free(s2);
+		s2 = NULL;
+		return (NULL);
+	}
+	return (NULL);
+}
+
 char	*ft_rest_end(char *buf)
 {
 	char			*rest;
@@ -48,10 +65,7 @@ char	*ft_rest_end(char *buf)
 	while (buf[i] && buf[i] != '\n')
 		i++;
 	if (buf[i] != '\n')
-	{
-		free(buf);
-		return (0);
-	}
+		return (ft_free(buf, 0));
 	start = i + 1;
 	i = 0;
 	rest = malloc((ft_strlen(buf) - start + 1) * sizeof(char));
@@ -81,30 +95,22 @@ char	*ft_find_line(char *buf, int fd)
 	{
 		count = read(fd, tmp, BUFFER_SIZE);
 		if (count == -1)
-		{
-			free(tmp);
-			return (0);
-		}
+			return (ft_free(tmp, 0));
 		if (count == 0)
 		{
-			free(tmp);
-			tmp = NULL;
+			ft_free(tmp, 0);
 			break ;
 		}
 		tmp[count] = '\0';
 		stock = ft_strjoin(buf, tmp);
 		if (!stock)
-		{
-			free(buf);
-			free(tmp);
-			return (0);
-		}
+			return (ft_free(buf, tmp));
 		free(buf);
 		buf = stock;
 		if (ft_check_n(buf))
 			break ;
 	}
-	if (tmp)
+	if (count != 0)
 		free(tmp);
 	return (buf);
 }
@@ -114,20 +120,14 @@ char	*get_next_line(int fd)
 	static char		*buf = NULL;
 	char			*next_line;
 
-	if (fd > 1024 || fd < 0)
+	if (fd >= 1024 || fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	buf = ft_find_line(buf, fd);
 	if (!buf)
-	{
-		free(buf);
-		return (0);
-	}
+		return (ft_free(buf, 0));
 	next_line = ft_trim_line(buf);
 	if (!next_line)
-	{
-		free(buf);
-		return (0);
-	}
+		return (ft_free(buf, 0));
 	buf = ft_rest_end(buf);
 	return (next_line);
 }
