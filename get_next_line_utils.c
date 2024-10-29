@@ -6,30 +6,27 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/28 16:48:29 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:52:09 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strdup(char *s)
+void	*ft_free(char *s1, char *s2)
 {
-	int		i;
-	int		len;
-	char	*dest;
-
-	i = 0;
-	len = ft_strlen(s) + 1;
-	dest = malloc(len * sizeof(char));
-	if (dest == NULL)
-		return (0);
-	while (s[i])
+	if (s1)
 	{
-		dest[i] = s[i];
-		i++;
+		free(s1);
+		s1 = NULL;
+		return (NULL);
 	}
-	dest[i] = '\0';
-	return (dest);
+	if (s2)
+	{
+		free(s2);
+		s2 = NULL;
+		return (NULL);
+	}
+	return (NULL);
 }
 
 int	ft_strlen(char *s)

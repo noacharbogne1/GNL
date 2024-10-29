@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/29 08:47:14 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:57:25 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,6 @@ char	*ft_trim_line(char *buf)
 	else
 		next_line[i] = '\0';
 	return (next_line);
-}
-
-void	*ft_free(char *s1, char *s2)
-{
-	if (s1)
-	{
-		free(s1);
-		s1 = NULL;
-		return (NULL);
-	}
-	if (s2)
-	{
-		free(s2);
-		s2 = NULL;
-		return (NULL);
-	}
-	return (NULL);
 }
 
 char	*ft_rest_end(char *buf)
@@ -81,9 +64,22 @@ char	*ft_rest_end(char *buf)
 	return (rest);
 }
 
+void	*ft_join_buf(char *buf, char *tmp, int count)
+{
+	char	*stock;
+
+	stock = NULL;
+	tmp[count] = '\0';
+	stock = ft_strjoin(buf, tmp);
+	if (!stock)
+			return (ft_free(buf, tmp));
+	free(buf);
+	buf = stock;
+	return ((char *)buf);
+}
+
 char	*ft_find_line(char *buf, int fd)
 {
-	char			*stock;
 	char			*tmp;
 	int				count;
 
@@ -101,12 +97,7 @@ char	*ft_find_line(char *buf, int fd)
 			ft_free(tmp, 0);
 			break ;
 		}
-		tmp[count] = '\0';
-		stock = ft_strjoin(buf, tmp);
-		if (!stock)
-			return (ft_free(buf, tmp));
-		free(buf);
-		buf = stock;
+		buf = ft_join_buf(buf, tmp, count);
 		if (ft_check_n(buf))
 			break ;
 	}
