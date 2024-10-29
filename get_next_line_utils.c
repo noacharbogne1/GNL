@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:02 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/29 08:52:09 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:39:59 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ void	*ft_free(char *s1, char *s2)
 	{
 		free(s1);
 		s1 = NULL;
-		return (NULL);
 	}
 	if (s2)
 	{
 		free(s2);
 		s2 = NULL;
-		return (NULL);
 	}
 	return (NULL);
 }

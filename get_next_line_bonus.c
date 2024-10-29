@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:05:14 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/29 09:29:21 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:35:17 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_find_line(char *buf, int fd)
 	{
 		count = read(fd, tmp, BUFFER_SIZE);
 		if (count == -1)
-			return (ft_free(tmp, 0));
+			return (ft_free(tmp, buf));
 		if (count == 0)
 		{
 			ft_free(tmp, 0);
