@@ -120,5 +120,10 @@ char	*get_next_line(int fd)
 	if (!next_line)
 		return (ft_free(buf[fd], 0));
 	buf[fd] = ft_rest_end(buf[fd]);
+	if (buf[fd] && buf[fd][0] == '\0')
+	{
+		free(buf[fd]);
+		buf[fd] = NULL;
+	}
 	return (next_line);
 }

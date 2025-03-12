@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:00:20 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/29 15:04:54 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/31 08:25:04 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 42
 # endif
 
 char	*get_next_line(int fd);

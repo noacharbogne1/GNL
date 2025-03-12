@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:59:51 by ncharbog          #+#    #+#             */
-/*   Updated: 2024/10/29 14:35:05 by ncharbog         ###   ########.fr       */
+/*   Updated: 2024/10/31 08:16:39 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,10 @@ char	*get_next_line(int fd)
 	if (!next_line)
 		return (ft_free(buf, 0));
 	buf = ft_rest_end(buf);
+	if (buf && buf[0] == '\0')
+	{
+		free(buf);
+		buf = NULL;
+	}
 	return (next_line);
 }
